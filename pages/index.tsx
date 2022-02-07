@@ -1,13 +1,26 @@
-import type { GetServerSideProps, NextPage } from "next";
+import { PlayerContext } from "@components/Layout";
+import type { NextPage } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import { useContext, useEffect, useState } from "react";
 
-interface HomeProps {
-  results: { Response: any };
-}
+interface HomeProps {}
 
-const Home: NextPage<HomeProps> = ({ results }) => {
+const Home: NextPage<HomeProps> = () => {
   const { query } = useRouter();
+  const rawPlayerData = useContext(PlayerContext);
+  console.log(rawPlayerData);
+
+  const [playerData, setPlayerData] = useState(rawPlayerData);
+
+  useEffect(() => {
+    setPlayerData(rawPlayerData);
+    console.log(playerData);
+  }, [rawPlayerData, playerData]);
+
+  if (!playerData) {
+    return <div>Error</div>;
+  }
 
   return (
     <>
@@ -19,32 +32,11 @@ const Home: NextPage<HomeProps> = ({ results }) => {
         Statistics
       </h1>
       <pre className="text-center text-sm">
-        {JSON.stringify(results["Response"], null, 2)}
+        {JSON.stringify(playerData["Response"], null, 2)}
       </pre>
       <pre className="text-sm">Authorization Code: {query.code}</pre>
     </>
   );
 };
-
-export const getServerSideProps: GetServerSideProps = async () => {
-  const results = await fetch("https://localhost:3000/api/bungie", {
-    method: "POST",
-    body: JSON.stringify({ id: "test" }),
-  }).then((res) => res.json());
-
-  return {
-    props: {
-      results,
-    },
-  };
-};
-
-// const Home: NextPage<HomeProps> = () => {
-//   return (
-//     <SWRConfig value={{ revalidateOnFocus: false }}>
-//       <Stats />
-//     </SWRConfig>
-//   );
-// };
 
 export default Home;

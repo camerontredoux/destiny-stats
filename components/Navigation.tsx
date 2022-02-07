@@ -1,10 +1,10 @@
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent } from "react";
 
-interface NavigationProps {}
+interface NavigationProps {
+  setBungieName: React.Dispatch<any>;
+}
 
-const Navigation: React.FC<NavigationProps> = () => {
-  const [bungieName, setBungieName] = useState("");
-
+const Navigation: React.FC<NavigationProps> = ({ setBungieName }) => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const target = e.target as typeof e.target & {
