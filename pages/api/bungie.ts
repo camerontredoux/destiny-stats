@@ -14,7 +14,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           : rawDisplayNameCode;
 
       const result = await fetch(
-        `${api_root_path}/Destiny2/SearchDestinyPlayerByBungieName/All`,
+        `${api_root_path}/Destiny2/SearchDestinyPlayerByBungieName/All/`,
         {
           method: "POST",
           headers: {
@@ -29,7 +29,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
       const data = await result.json();
 
-      const membershipId = data["Response"][1].membershipId;
+      const membershipId = data["Response"][0].membershipId;
       const stats = await fetch(
         `${api_root_path}/Destiny2/3/Account/${membershipId}/Stats/`,
         {
@@ -42,7 +42,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
       res.status(200).json(stat_json);
     } catch (e) {
-      res.status(400).json({ error: "No Bungie user with that name." });
+      res
+        .status(400)
+        .json({ error: "Could not find any statistics for this user." });
     }
   }
 };
