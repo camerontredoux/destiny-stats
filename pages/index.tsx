@@ -8,11 +8,7 @@ import * as yup from "yup";
 interface HomeProps {}
 
 const BungieNameScheme = yup.object().shape({
-  bungieName: yup
-    .string()
-    .trim()
-    .matches(/[a-zA-Z]+#[0-9]+/, "Invalid Bungie Name")
-    .required("Required"),
+  bungieName: yup.string().trim().required("Required"),
 });
 
 const Home: NextPage<HomeProps> = () => {
