@@ -80,7 +80,7 @@ const Home: NextPage<HomeProps> = () => {
         validationSchema={BungieNameScheme}
         initialValues={{ bungieName: "" }}
         onSubmit={async (values) => {
-          await fetch("https://localhost:3000/api/bungie", {
+          await fetch("https://destiny-stats.vercel.app/api/bungie", {
             method: "POST",
             body: JSON.stringify({ id: values.bungieName }),
           })
