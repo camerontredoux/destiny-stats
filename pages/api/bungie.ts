@@ -24,17 +24,17 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         console.log(characters[characterId].minutesPlayedTotal);
       }
 
-      const race = await api.getManifest("DestinyRaceDefinition", "2803282938");
+      // const race = await api.getManifest("DestinyRaceDefinition", "2803282938");
 
-      const gender = await api.getManifest(
-        "DestinyGenderDefinition",
-        "3111576190"
-      );
+      // const gender = await api.getManifest(
+      //   "DestinyGenderDefinition",
+      //   "3111576190"
+      // );
 
-      const classname = await api.getManifest(
-        "DestinyClassDefinition",
-        "3655393761"
-      );
+      // const classname = await api.getManifest(
+      //   "DestinyClassDefinition",
+      //   "3655393761"
+      // );
 
       // console.log(race, gender, classname);
 
